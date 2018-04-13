@@ -18,6 +18,7 @@ go test
 ```
 
 ### TODO if this were a production project
+Handle space limitations<br>
 More test coverage - gave just a few examples<br>
 Store registered users to disk - currently an in memory map, <br>
 Create and cleanup folders on startup - folders included in project<br>
