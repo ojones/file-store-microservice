@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// Storer decouple and to test without writing to disk
 type Storer interface {
 	listFiles(folderpath string) ([]byte, error)
     putFile(filename string, folderpath string, file io.Reader) error
@@ -21,11 +22,13 @@ func (s *store) listFiles(folderPath string) ([]byte, error) {
 	if _, err := os.Stat(folderPath); os.IsNotExist(err) {
 		return nil, err
 	}
+	
 	// Read files
 	files, err := ioutil.ReadDir(folderPath)
     if err != nil {
 		return nil, err
 	}
+	
 	// Create output
 	filenames := []string{}
     for _, f := range files {
@@ -44,10 +47,12 @@ func (s *store) putFile(filename string, folderpath string, file io.Reader) erro
 	if err != nil {
 		return err
 	}
+	
 	// Create folder if not there
 	if _, err := os.Stat(folderpath); os.IsNotExist(err) {
 		os.Mkdir(folderpath, os.ModePerm)
 	}
+	
 	// Write file
 	newPath := folderpath + filename
 	newFile, err := os.Create(newPath)
@@ -68,12 +73,14 @@ func (s *store) getFile(filepath string) ([]byte, int64, error) {
 	  	return nil, 0, err
 	}
 	defer file.Close()
+	
 	// Get info for file size
 	fileinfo, err := file.Stat()
 	if err != nil {
 	  	return nil, 0, err
 	}
 	filesize := fileinfo.Size()
+	
 	// Create output
 	buffer := make([]byte, filesize)
 	_, err = file.Read(buffer)

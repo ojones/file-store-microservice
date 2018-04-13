@@ -23,6 +23,7 @@ func TestLoginHandler(t *testing.T) {
         Password: string(hash),
         Folder: "test_files/",
     }
+    
     // Create a request
     requestJSON := `{"username": "testusername", "password": "test_password"}`
     reader := strings.NewReader(requestJSON) 
@@ -30,21 +31,26 @@ func TestLoginHandler(t *testing.T) {
     if err != nil {
         t.Fatal(err)
     }
+    
     // Create ResponseRecorder
     rr := httptest.NewRecorder()
     handler := http.HandlerFunc(s.loginHandler)
+    
     // Call handler
     handler.ServeHTTP(rr, req)
-	// Check the status code
+    
+    // Check the status code
     if status := rr.Code; status != 200 {
         t.Errorf("handler returned wrong status code: got %v want %v",
             status, 200)
     }
-	// Unmarshal
+    
+    // Unmarshal
 	var responseMsg LoginResponse
 	if err := json.Unmarshal([]byte(rr.Body.String()), &responseMsg); err != nil {
         t.Fatal(err)
 	}
+    
     // Check the response body
     if responseMsg.Token == "" {
         t.Errorf("handler returned unexpected Token: got %v want %v",

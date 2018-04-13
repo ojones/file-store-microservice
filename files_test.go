@@ -25,20 +25,25 @@ func TestFilesHandler(t *testing.T) {
     }
     testFolderPath := s.StorageDirectory + s.Users["testusername"].Folder
     mockStore.On("listFiles", testFolderPath).Return(nil, nil)
+    
     // Create a request
     req, err := http.NewRequest("POST", "/files", nil)
     if err != nil {
         t.Fatal(err)
     }
+    
     // Set context
     testclaims := map[string]interface{}{"username": "testusername"}
     context.Set(req, "decoded", testclaims)
+    
     // Create ResponseRecorder
     rr := httptest.NewRecorder()
     handler := http.HandlerFunc(s.filesListHandler)
+    
     // Call handler
     handler.ServeHTTP(rr, req)
-	// Check the status code
+    
+    // Check the status code
     if status := rr.Code; status != 200 {
         t.Errorf("handler returned wrong status code: got %v want %v",
             status, 200)

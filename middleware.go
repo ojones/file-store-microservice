@@ -34,7 +34,6 @@ func (s *Service) ValidateMiddleware(next http.HandlerFunc) http.HandlerFunc {
                     return
                 }
                 if token.Valid {
-                    fmt.Printf("token.Claims: %v\n", token.Claims)
                     context.Set(req, "decoded", token.Claims)
                     next(w, req)
                 } else {
