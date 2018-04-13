@@ -38,8 +38,8 @@ func main() {
 	srv := &http.Server{
 		Handler:      handlers.LoggingHandler(os.Stdout, r),
 		Addr:         fmt.Sprintf("%s:%s", c.IP, c.Port),
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
+		WriteTimeout: time.Duration(c.WriteTimeoutSeconds) * time.Second,
+		ReadTimeout:  time.Duration(c.WriteTimeoutSeconds) * time.Second,
 	}
 	
 	// Run server
