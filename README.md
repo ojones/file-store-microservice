@@ -10,6 +10,7 @@ From within repo:
 ```
 go build && ./simple-storage-server
 ```
+Localhost address is http://localhost:9999/
 
 ### Test
 ```
