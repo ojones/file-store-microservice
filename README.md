@@ -16,10 +16,6 @@ Localhost address is http://localhost:9999/
 ```
 go test
 ```
-For coverage:
-```
-go test -cover
-```
 
 ### TODO if this were a production project
 More test coverage - gave just a few examples<br>
