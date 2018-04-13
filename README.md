@@ -7,7 +7,22 @@ Completed all instructions. Included some best practices but not everywhere due 
 
 Suggestions welcome.
 
-TODO if this were a production project:<br>
+### Build and run
+From within repo:
+```
+go build && ./simple-storage-server
+```
+
+### Test
+```
+go test
+```
+For coverage:
+```
+go test -cover
+```
+
+### TODO if this were a production project
 More test coverage - gave just a few examples<br>
 Store registered users to disk - currently an in memory map, <br>
 Create and cleanup folders on startup - folders included in project<br>
