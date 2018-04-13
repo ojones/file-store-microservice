@@ -7,11 +7,11 @@ Completed all instructions. Included some best practices but not everywhere due 
 
 Suggestions welcome.
 
-TODO:
-More test coverage
-Store registred users to disk
-Create and cleanup folders on startup
-Logger middleware
-Integration tests
-Read configs from text file
-Docker image
+TODO if this were a production project:<br>
+More test coverage - just gave a few examples<br>
+Store registred users to disk - currently an in memory map, <br>
+Create and cleanup folders on startup - folders included in project<br>
+Logger middleware instead - currenlty just does validation<br>
+Integration tests<br>
+Read configs from text file<br>
+Docker image<br>
