@@ -25,7 +25,6 @@ func (s *Service) filesListHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "", 403)
 		return
 	}
-	fmt.Println("user", user)
 
 	// Get users personal folder name from data storage
 	personalFolder := s.Users[user.Username].Folder
@@ -151,7 +150,6 @@ func (s *Service) filesDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	claims := context.Get(r, "decoded")
 	var user User
 	mapstructure.Decode(claims, &user)
-	fmt.Println("user", user)
 
 	// Check if user exists in storage
 	if _, ok := s.Users[user.Username]; !ok {
