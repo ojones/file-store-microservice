@@ -12,7 +12,7 @@ go build && ./simple-storage-server
 ```
 Localhost address is http://localhost:9999/
 
-File upload form field is "file"
+Expected file form field is "file"
 
 ### Test
 ```
