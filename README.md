@@ -1,7 +1,7 @@
 # simple-storage-server
 Simple storage server homework assignment for interview. Go microservice for managing multipler user accounts for personal file storage. 
 
-Completed all instructions. Included some best practices but not everywhere due to time. Should give a general idea of my capabilities.
+Completed all instructions. Included best practices but not absolutely everywhere due to time. Should give a general idea of my capabilities.
 
 Suggestions welcome.
 
