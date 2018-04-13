@@ -1,15 +1,15 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
-	"net/http"
 	"io/ioutil"
-	"encoding/json"
+	"net/http"
 	"time"
-	
+
 	"github.com/dgrijalva/jwt-go"
-    "golang.org/x/crypto/bcrypt"
+	"golang.org/x/crypto/bcrypt"
 	"gopkg.in/go-playground/validator.v9"
 )
 
@@ -31,7 +31,7 @@ func (l *LoginRequest) Validate() error {
 
 // LoginResponse for login requests
 type LoginResponse struct {
-    Token string `json:"token"`
+	Token string `json:"token"`
 }
 
 func (s *Service) loginHandler(w http.ResponseWriter, r *http.Request) {
@@ -44,7 +44,7 @@ func (s *Service) loginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer r.Body.Close()
-	
+
 	// Unmarshal
 	var requestMsg LoginRequest
 	err = json.Unmarshal(b, &requestMsg)
@@ -54,7 +54,7 @@ func (s *Service) loginHandler(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(ErrorResponse{Error: err.Error()})
 		return
 	}
-	
+
 	// Validate
 	if err := requestMsg.Validate(); err != nil {
 		fmt.Println(err)
@@ -62,7 +62,7 @@ func (s *Service) loginHandler(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(ErrorResponse{Error: err.Error()})
 		return
 	}
-	
+
 	// Check if user exists in storage
 	if _, ok := s.Users[requestMsg.Username]; !ok {
 		err := errors.New("username is not recognized please register")
@@ -71,24 +71,24 @@ func (s *Service) loginHandler(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(ErrorResponse{Error: err.Error()})
 		return
 	}
-	
+
 	// Comparing the password with the hash
-    if err := bcrypt.CompareHashAndPassword([]byte(s.Users[requestMsg.Username].Password), []byte(requestMsg.Password)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(s.Users[requestMsg.Username].Password), []byte(requestMsg.Password)); err != nil {
 		http.Error(w, err.Error(), 403)
 		return
-    }
-	
+	}
+
 	// Create the token
-    token := jwt.New(jwt.SigningMethodHS256)
-	
+	token := jwt.New(jwt.SigningMethodHS256)
+
 	// Create a map to store our claims
-    claims := token.Claims.(jwt.MapClaims)
+	claims := token.Claims.(jwt.MapClaims)
 	claims["username"] = requestMsg.Username
-    claims["expires"] = time.Now().Add(time.Hour * 24).Unix()
-	
+	claims["expires"] = time.Now().Add(time.Hour * 24).Unix()
+
 	// Sign the token
 	tokenString, _ := token.SignedString(s.TokenSigningKey)
-	
+
 	// Create response
 	responseMsg := &LoginResponse{Token: tokenString}
 	output, err := json.Marshal(responseMsg)
@@ -96,11 +96,11 @@ func (s *Service) loginHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 500)
 		return
 	}
-	
+
 	// Respond
 	w.Header().Set("content-type", "application/json")
 	w.Write(output)
-	
+
 	// Log
 	fmt.Printf("user logged in: %s\n", requestMsg.Username)
 }

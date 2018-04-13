@@ -4,5 +4,5 @@ package main
 type User struct {
 	Username string `db:"username"`
 	Password string `db:"password"`
-	Folder string `db:"folder"`
+	Folder   string `db:"folder"`
 }
