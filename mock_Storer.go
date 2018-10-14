@@ -11,8 +11,8 @@ type MockStorer struct {
 	mock.Mock
 }
 
-// deleteFile provides a mock function with given fields: filepath
-func (_m *MockStorer) deleteFile(filepath string) error {
+// removeFile provides a mock function with given fields: filepath
+func (_m *MockStorer) removeFile(filepath string) error {
 	ret := _m.Called(filepath)
 
 	var r0 error
@@ -78,8 +78,8 @@ func (_m *MockStorer) listFiles(folderpath string) ([]byte, error) {
 	return r0, r1
 }
 
-// putFile provides a mock function with given fields: filename, folderpath, file
-func (_m *MockStorer) putFile(filename string, folderpath string, file io.Reader) error {
+// addFile provides a mock function with given fields: filename, folderpath, file
+func (_m *MockStorer) addFile(filename string, folderpath string, file io.Reader) error {
 	ret := _m.Called(filename, folderpath, file)
 
 	var r0 error

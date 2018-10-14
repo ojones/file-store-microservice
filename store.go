@@ -10,9 +10,9 @@ import (
 // Storer decouple and to test without writing to disk
 type Storer interface {
 	listFiles(folderpath string) ([]byte, error)
-	putFile(filename string, folderpath string, file io.Reader) error
+	addFile(filename string, folderpath string, file io.Reader) error
 	getFile(filepath string) ([]byte, int64, error)
-	deleteFile(filepath string) error
+	removeFile(filepath string) error
 }
 
 type store struct{}
@@ -41,7 +41,7 @@ func (s *store) listFiles(folderPath string) ([]byte, error) {
 	return output, nil
 }
 
-func (s *store) putFile(filename string, folderpath string, file io.Reader) error {
+func (s *store) addFile(filename string, folderpath string, file io.Reader) error {
 	// Read file
 	fileBytes, err := ioutil.ReadAll(file)
 	if err != nil {
@@ -90,7 +90,7 @@ func (s *store) getFile(filepath string) ([]byte, int64, error) {
 	return buffer, filesize, nil
 }
 
-func (s *store) deleteFile(filepath string) error {
+func (s *store) removeFile(filepath string) error {
 	// Delete file
 	err := os.Remove(filepath)
 	if err != nil {

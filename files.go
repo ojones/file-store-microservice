@@ -41,7 +41,7 @@ func (s *Service) filesListHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(output)
 
 	// Log
-	fmt.Println("file listed")
+	fmt.Println("files listed")
 }
 
 func (s *Service) filesPutHandler(w http.ResponseWriter, r *http.Request) {
@@ -82,7 +82,7 @@ func (s *Service) filesPutHandler(w http.ResponseWriter, r *http.Request) {
 	defer file.Close()
 
 	// Put file in store
-	if err := s.Store.putFile(filename, folderpath, file); err != nil {
+	if err := s.Store.addFile(filename, folderpath, file); err != nil {
 		fmt.Println(errors.New("cannot write file"))
 		http.Error(w, "", 500)
 		return
@@ -174,7 +174,7 @@ func (s *Service) filesDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Delete file from store
-	err := s.Store.deleteFile(filepath)
+	err := s.Store.removeFile(filepath)
 	if err != nil {
 		fmt.Println(err.Error())
 		http.Error(w, "", 500)
