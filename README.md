@@ -1,6 +1,6 @@
 >Go microservice that allows registered users to store files.
 
-# File Storage Microservice
+# File Store Microservice
 
    * [Good practices](#good-practices)
    * [Usage](#usage)
