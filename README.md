@@ -50,8 +50,8 @@ go test
 - Publish API
 
 # Personal Note
-What's the big deal with microservices? Honestly, it's just the next logical step in the evolution of service oriented architecture (SOA).
+What's the big deal with microservices?
 
-SOA allowed us to escape the single point of failure of having everything run on one server. Back then, network bottlenecks prevented us from over using services but that is much less of problem now.
+With clouds, we can finally decouple data and the logic that goes with them across infrastructure. Just imagine your working code stays up. When something goes wrong, only one service goes down. It's a beautiful dream. The cost is the heavy lifting of configuring, monitoring, and complicating your system.
 
-With clouds, we can freely decouple data and the logic that goes with them across infrastructure. Just imagine your working code stays up. When something goes wrong, only one service goes down. It's a beauatiful dream. The cost is the heavy lifting of configuring, monitoring, and complicating your system.
+Serverless lambda functions are the next logical step. But it's not necessary to be extreme about any paradigm. With services, the ends is more important than the means.
